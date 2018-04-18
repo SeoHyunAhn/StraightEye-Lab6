@@ -4,11 +4,15 @@ body {
   color: #404040;
   background: #317ED5;
   text-align: center;
+<<<<<<< HEAD
 
   text-rendering: auto;
   line-height: 1.6em;
   padding: 35%;
   padding-top: 25vh;
+=======
+  padding-top: 30%;
+>>>>>>> origin/Myeongsu
 }
 
 .container {
@@ -53,9 +57,13 @@ body {
   p { margin: 20px 0 0; }
 
   /*body {font-family: Arial, Helvetica, sans-serif;}*/
+<<<<<<< HEAD
 * {
   box-sizing: border-box
 }
+=======
+* {box-sizing: border-box}
+>>>>>>> origin/Myeongsu
 /* Full-width input fields */
 input[type=text], input[type=password] {
     width: 100%;
@@ -74,14 +82,22 @@ input[type=text]:focus, input[type=password]:focus {
 
 /* Set a style for all buttons */
 button {
+<<<<<<< HEAD
     background-color: #963d82;
     color: black;
     padding: 14px 30px;
     margin: 10px 0;
+=======
+    background-color: #FFFFFF;
+    color: black;
+    padding: 14px 20px;
+    margin: 8px 0;
+>>>>>>> origin/Myeongsu
     border: outset;
     cursor: pointer;
     width: 100%;
     opacity: 0.9;
+<<<<<<< HEAD
 
     position: relative;
     /*padding-right: 1em;*/
@@ -89,6 +105,8 @@ button {
     border: none;
     color: white;
     transition: .4s;
+=======
+>>>>>>> origin/Myeongsu
 }
 
 button:hover {
