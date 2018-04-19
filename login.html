@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <head>
+
   <meta charset="utf-8">
   <title>Login Form</title>
   <link rel="stylesheet" href="css/style_log.css">
 </head>
 <body>
+  
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBFfUi9A7dJc8E7-NAAyh68OW6QFokJN3o",
+    authDomain: "cs252-lab6-58dac.firebaseapp.com",
+    databaseURL: "https://cs252-lab6-58dac.firebaseio.com",
+    projectId: "cs252-lab6-58dac",
+    storageBucket: "cs252-lab6-58dac.appspot.com",
+    messagingSenderId: "730586130212"
+  };
+  firebase.initializeApp(config);
+</script>
+</script>
 	<button onclick="document.getElementById('id03').style.display='block'" style="width:auto;">Log in </button>
  	<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Sign Up</button>
 <!-- SIGN UP -->
