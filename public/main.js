@@ -41,6 +41,11 @@ app.get('/translate', function(req, res){
   res.sendFile(path.join(__dirname+'/translate.html'));
 
 })
+app.get('/spell', function(req, res){
+  res.sendFile(path.join(__dirname+'/spell.html'));
+
+})
+
 app.post('/translate_text', function(req, res){
   var api_url = 'https://openapi.naver.com/v1/language/translate';
   var request = require('request');
@@ -57,8 +62,20 @@ app.post('/translate_text', function(req, res){
       // res.send(body);
       // var temp = response.result;
       var temp = body;
-      console.log(JSON.stringify(temp['message']);
-      res.end(body);
+      var string = "";
+      for (var i = 0; i < temp.length; i++) {
+        string += temp[i];
+      }
+      var n = string.split("\"");
+      var s;
+      for ( s = 0; s < n.length; s++) {
+        if (n[s]=="translatedText") {
+          break;
+        }
+      }
+      console.log(n[s+2]);
+      res.end(n[s+2]);
+      // res.end(body);
     } else {
       res.status(response.statusCode).end();
       console.log('error = ' + response.statusCode);
