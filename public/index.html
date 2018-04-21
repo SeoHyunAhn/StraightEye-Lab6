@@ -61,7 +61,7 @@
     <!-- 로그인 화면 및 가입화면 영역 -->
     <div id="dvAuth">
       <div id="dvLogin">
-          <h5>로그인</h5>
+          <h5>Log In</h5>
           <div id="dvSocial">
               <ul class="btnGroup">
                   <li id="liGoogleBtn" class="waves-effect waves-teal btn-flat"><i></i>구글 계정으로 가입 및 로그인</li>
@@ -70,24 +70,24 @@
               <em class="or">or</em>
           </div>
           <div id="dvEmail">
-              <input type="email" id="userName" name="userName" class="input-text" placeholder="이메일 아이디">
-              <input type="password" id="password" name="password" class="input-text" maxlength="17" placeholder="비밀번호">
+              <input type="email" id="userName" name="userName" class="input-text" placeholder="Email Address">
+              <input type="password" id="password" name="password" class="input-text" maxlength="17" placeholder="Password">
               <ul class="btnGroup">
-                  <li id="liEmailBtn" class="waves-effect waves-teal btn-flat">이메일으로 로그인</li>
+                  <li id="liEmailBtn" class="waves-effect waves-teal btn-flat">Log In</li>
               </ul>
               <ul class="btnGroup">
-                  <li id="liEmailJoin" class="waves-effect waves-teal btn-flat">이메일으로 가입</li>
+                  <li id="liEmailJoin" class="waves-effect waves-teal btn-flat">Create Account</li>
               </ul>
           </div>
       </div>
       <div id="dvJoin">
-          <h5>이메일 가입</h5>
-          <input type="text" id="joinUserName" name="userName" class="input-text" placeholder="이름">
-          <input type="email" id="joinUserEmail" name="userName" class="input-text" placeholder="이메일 아이디">
-          <input type="password" id="joinPassword" name="password" class="input-text" maxlength="17" placeholder="비밀번호">
-          <input type="password" id="joinRePassword" class="input-text" maxlength="17" placeholder="비밀번호 확인">
+          <h5>Create Account with E-mail</h5>
+          <input type="text" id="joinUserName" name="userName" class="input-text" placeholder="Name">
+          <input type="email" id="joinUserEmail" name="userName" class="input-text" placeholder="E-mail Address">
+          <input type="password" id="joinPassword" name="password" class="input-text" maxlength="17" placeholder="Password">
+          <input type="password" id="joinRePassword" class="input-text" maxlength="17" placeholder="Password Again">
           <ul class="btnGroup">
-              <li id="liEmailJoinSubmit" class="waves-effect waves-teal btn-flat">이메일으로 가입</li>
+              <li id="liEmailJoinSubmit" class="waves-effect waves-teal btn-flat">Create Account</li>
           </ul>
       </div>
     </div>
@@ -111,6 +111,7 @@
             <a id="aConfirmInvite" href="#!" class="modal-action modal-close waves-effect waves-green btn blue white-text">추가</a>
         </div>
     </div>
+
     <!-- template 영역 -->
     <!-- template 유저리스트 영역 -->
     <script type="text/template" id="templateUserList">
@@ -290,7 +291,8 @@
                       });
 
                       //인증 메일 발송
-                      this.auth.useDeviceLanguage(); // 이메일 기기언어로 세팅
+                      this.auth.useDeviceLanguage();
+                      // 이메일 기기언어로 세팅
                       user.sendEmailVerification().then(function() {
                           console.log('인증메일 발송 성공')
                       }).catch(function(error) {
@@ -416,5 +418,6 @@
               $('#dvAddUser').modal();
           });
       </script>
+      
   </body>
 </html>

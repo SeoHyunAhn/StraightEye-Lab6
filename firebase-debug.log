@@ -1,44 +1,53 @@
-[debug] [2018-04-21T19:16:20.403Z] ----------------------------------------------------------------------
-[debug] [2018-04-21T19:16:20.405Z] Command:       /Users/kimmyeongsu/.nvm/versions/node/v6.10.3/bin/node /Users/kimmyeongsu/.nvm/versions/node/v6.10.3/bin/firebase serve
-[debug] [2018-04-21T19:16:20.405Z] CLI Version:   3.18.4
-[debug] [2018-04-21T19:16:20.405Z] Platform:      darwin
-[debug] [2018-04-21T19:16:20.405Z] Node Version:  v6.10.3
-[debug] [2018-04-21T19:16:20.405Z] Time:          Sat Apr 21 2018 15:16:20 GMT-0400 (EDT)
-[debug] [2018-04-21T19:16:20.405Z] ----------------------------------------------------------------------
+[debug] [2018-04-21T20:13:04.812Z] ----------------------------------------------------------------------
+[debug] [2018-04-21T20:13:04.815Z] Command:       /Users/kimmyeongsu/.nvm/versions/node/v6.10.3/bin/node /Users/kimmyeongsu/.nvm/versions/node/v6.10.3/bin/firebase serve
+[debug] [2018-04-21T20:13:04.815Z] CLI Version:   3.18.4
+[debug] [2018-04-21T20:13:04.815Z] Platform:      darwin
+[debug] [2018-04-21T20:13:04.815Z] Node Version:  v6.10.3
+[debug] [2018-04-21T20:13:04.815Z] Time:          Sat Apr 21 2018 16:13:04 GMT-0400 (EDT)
+[debug] [2018-04-21T20:13:04.815Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2018-04-21T19:16:20.416Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-04-21T19:16:20.416Z] > authorizing via signed-in user
-[debug] [2018-04-21T19:16:20.419Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/cs252-lab6-58dac  
+[debug] [2018-04-21T20:13:04.825Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-04-21T20:13:04.825Z] > authorizing via signed-in user
+[debug] [2018-04-21T20:13:04.827Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-04-21T20:13:04.827Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/5TFWFy1fdZW0WNxuRyWHZ6n9Bxtor5oxPFGRbduGOns',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Sat Apr 21 2018 16:13:04 GMT-0400 (EDT)
+[debug] [2018-04-21T20:13:04.982Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-21T20:13:04.984Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/cs252-lab6-58dac  
   
- Sat Apr 21 2018 15:16:20 GMT-0400 (EDT)
-[debug] [2018-04-21T19:16:20.800Z] <<< HTTP RESPONSE 200
-[debug] [2018-04-21T19:16:20.801Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/cs252-lab6-58dac/tokens  
+ Sat Apr 21 2018 16:13:04 GMT-0400 (EDT)
+[debug] [2018-04-21T20:13:05.263Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-21T20:13:05.264Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/cs252-lab6-58dac/tokens  
   
- Sat Apr 21 2018 15:16:20 GMT-0400 (EDT)
-[debug] [2018-04-21T19:16:21.294Z] <<< HTTP RESPONSE 200
-[debug] [2018-04-21T19:16:21.295Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/cs252-lab6-58dac  
+ Sat Apr 21 2018 16:13:05 GMT-0400 (EDT)
+[debug] [2018-04-21T20:13:05.921Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-21T20:13:05.922Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/cs252-lab6-58dac  
   
- Sat Apr 21 2018 15:16:21 GMT-0400 (EDT)
-[debug] [2018-04-21T19:16:21.507Z] <<< HTTP RESPONSE 200
+ Sat Apr 21 2018 16:13:05 GMT-0400 (EDT)
+[debug] [2018-04-21T20:13:06.183Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from '/Users/kimmyeongsu/Desktop/project6/StraightEye-Lab6'...
 [info] 
 [info] i  functions: Preparing to emulate functions.
-[debug] [2018-04-21T19:16:21.903Z] Fetching environment
-[debug] [2018-04-21T19:16:21.905Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/730586130212:getServerAppConfig  
+[debug] [2018-04-21T20:13:06.569Z] Fetching environment
+[debug] [2018-04-21T20:13:06.570Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/730586130212:getServerAppConfig  
   
- Sat Apr 21 2018 15:16:21 GMT-0400 (EDT)
-[debug] [2018-04-21T19:16:21.905Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/730586130212/clients/_:getWebAppConfig  
+ Sat Apr 21 2018 16:13:06 GMT-0400 (EDT)
+[debug] [2018-04-21T20:13:06.571Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/730586130212/clients/_:getWebAppConfig  
   
- Sat Apr 21 2018 15:16:21 GMT-0400 (EDT)
-[debug] [2018-04-21T19:16:22.182Z] <<< HTTP RESPONSE 200
-[debug] [2018-04-21T19:16:22.194Z] <<< HTTP RESPONSE 200
-[debug] [2018-04-21T19:16:22.195Z] Starting @google-cloud/functions-emulator
+ Sat Apr 21 2018 16:13:06 GMT-0400 (EDT)
+[debug] [2018-04-21T20:13:06.839Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-21T20:13:06.839Z] Starting @google-cloud/functions-emulator
+[debug] [2018-04-21T20:13:06.847Z] <<< HTTP RESPONSE 200
 [info] i  hosting: Serving hosting files from: public
 [info] ✔  hosting: Local server: http://localhost:5000
 
 [warn] ⚠  functions: Error from emulator. Error: Emulator crashed! Check the log file...
-[debug] [2018-04-21T19:16:22.269Z] Error: Emulator crashed! Check the log file...
+[debug] [2018-04-21T20:13:06.914Z] Error: Emulator crashed! Check the log file...
     at ChildProcess.child.on (/Users/kimmyeongsu/.nvm/versions/node/v6.10.3/lib/node_modules/firebase-tools/node_modules/@google-cloud/functions-emulator/src/cli/controller.js:650:24)
     at emitTwo (events.js:106:13)
     at ChildProcess.emit (events.js:191:7)
