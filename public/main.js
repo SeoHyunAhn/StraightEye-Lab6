@@ -5,6 +5,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 const util = require('util');
+
 var path = require("path");
 var CopyleaksCloud = require('plagiarism-checker');
 var clCloud = new CopyleaksCloud();
@@ -39,6 +40,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.locals.pretty = true;
 app.use('/user', express.static('uploads'));
+app.use('/css', express.static('public'));
 app.set('views', './views');
 app.set('view engine', 'jade');
 app.get('/upload-enc', function(req, res) {
@@ -56,9 +58,8 @@ app.get('/buttons', function(req, res) {
   res.sendFile(path.join(__dirname + '/buttons.html'));
   // });
 });
-app.get('/translate', function(req, res) {
+app.get(['/translate.html', 'translate'], function(req, res) {
   res.sendFile(path.join(__dirname + '/translate.html'));
-
 })
 app.get('/spell', function(req, res) {
   res.sendFile(path.join(__dirname + '/spell.html'));
@@ -78,17 +79,42 @@ function callback(resp, err) {
       _customHeaders[config.SANDBOX_MODE_HEADER] = true;
       _customHeaders[config.HTTP_CALLBACK] = 'http://your.website.com/callbacks/'
       var url = 'https://copyleaks.com'; // URL to scan
+      var _pid;
       clCloud.createByText('helworld',_customHeaders,function(resp,err){
         	if(resp && resp.ProcessId){
         		console.log('API: create-by-text');
         		console.log('Process has been created: '+resp.ProcessId);
              console.log(util.inspect(resp, false, null))
+             _pid=resp.ProcessId;
         	}
      		if(!isNaN(err))
      			console.log('Error: ' + err);
      		});
     })
-  }
+    clCloud.getProcessResults(_pid,function(resp,err){
+	   		console.log(resp);
+				if(isNaN(err))
+					console.log('Error: ' + err);
+				/* Get the raw text the process and the first result, and the comparison report between them. */
+				var result = resp[0];
+				clCloud.getProcessRawText(_pid,function(resp,err){
+					console.log('Process raw text: ' + resp);
+					if(!isNaN(err))
+						console.log('Error: ' + err);
+				});
+				clCloud.getResultRawText(result.CachedVersion,function(resp,err){
+					console.log('Result raw text: ' + resp);
+					if(!isNaN(err))
+						console.log('Error: ' + err);
+				});
+				clCloud.getComparisonReport(result.ComparisonReport,function(resp,err){
+					console.log('Comparison report: ' + resp);
+					if(!isNaN(err))
+						console.log('Error: ' + err);
+				});
+	   });
+  // })
+}
 
 
 app.post('/translate_text', function(req, res) {
