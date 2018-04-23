@@ -1,0 +1,75 @@
+body {
+  font: 20px 'Lucida Grande', Arial, Cambria, sans-serif;
+  color: #404040;
+  background: #317ED5;'
+  text-align: center;
+  text-rendering: auto;
+  line-height: 1.6em;
+  padding: 35%;
+  padding-top: 25vh;
+}
+* {
+  box-sizing: border-box;
+}
+.button {
+  display: inline-block;
+  font-family: 'Lucida Grande', Arial, Cambria, sans-serif;
+  position: relative;
+  padding: .8em 1.3em;
+  padding-right: 1.7em;
+  background: #963d82;
+  font-size: 0.9em;
+  border: none;
+  color: white;
+  transition: .2s;
+}
+.button:before, .button:after {
+  padding-top: inherit;
+  padding-bottom: inherit;
+  width: 2em;
+  font-family: 'Lucida Grande', Arial, Cambria, sans-serif;
+  font-size: 2em;
+  text-align: center;
+  transition: .2s;
+  transform-origin: 50% 50%;
+}.button:hover {
+  background: #3db5e2;
+}
+.button:active,
+.button:focus {
+  background: #104559;
+}
+.button {
+  min-width: 15em;
+}
+@-webkit-keyframes bounceright {
+  from {
+    -webkit-transform: translateX(0);
+  }
+  to {
+    -webkit-transform: translateX(3px);
+  }
+}
+@-webkit-keyframes wiggle {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(30deg);
+  }
+}
+@keyframes bounceright {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(3px);
+  }
+}
+@keyframes wiggle {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(30deg);
+  }

@@ -1,0 +1,25 @@
+{
+  "name": "cs252-lab6",
+  "version": "1.0.0",
+  "description": "Members: Myeongsu Kim (kim2167@purdue.edu), SeoHyun Ahn(ahn67@purdue.edu), Youngjoon Park(park612@purdue.edu), Piyush Juneja(pjunea@purdue.edu)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node public/script-trans.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SeoHyunAhn/StraightEye-Lab6.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SeoHyunAhn/StraightEye-Lab6/issues"
+  },
+  "homepage": "https://github.com/SeoHyunAhn/StraightEye-Lab6#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "papago": "^1.1.1",
+    "request": "^2.85.0"
+  }
+}
