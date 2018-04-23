@@ -1,112 +1,196 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/style_log.css">
-    <title>Welcome to Firebase Hosting</title>
+    <head>
+        <title>FileAnalyzer</title>
+        <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                    
+                    
+    </head>
+    
+    <body>
+        
+        <!-- 네비게이션 바 시작 -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                        aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">File Analyzer</a>
+                </div>
+                
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="/">Home</a>
+                        </li>
+                        <li>
+                            <a id="loginmenu" href="/login.html">Login</a>
+                        </li>
+                        <li>
+                            <a id="joinmenu" href="/join.html">Create Account</a>
+                        </li>
+                        <li>
+                            <a id="startWork" href="/index.html"></a>
+                        </li>
+                        
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        <!-- 네비게이션 바 끝 -->
+        
+        
+        
+        <!-- 점보트론 시작 -->
+        <div class="container">
+            <div class="jumbotron">
+                <h1>
+                    <span style="color:black">File Analyzer.</span>
+                </h1>
+                <p>
+                <span style="color:black">File Analyzer provides lots of functions.</span>
+                </p>
+            </div>
+        </div>
+        <br>
+        <!-- 점보트론 끝 -->
+        
+        
+        <!-- 쓰기 텍스트 필드 시작-->
+        <div class="container">
+            <div class="form-group">
+                <label for="comment">Review/Question:</label>
+                <textarea class="form-control" rows="5" id="comment" placeholder="Please leave a review or question!"></textarea>
+                <br>
+                
+                <!-- 쓰기 버튼 가운데 정렬 -->
+                <div class="text-center">
+                    <button type="button" class="btn btn-success write" id="write" name="write">submit</button>
+                </div>
+            </div>
+        </div>
+        <!-- 쓰기 텍스트 필드 끝-->
+        
+        
+        
+<!--         감사리스트 출력하기-->
+        <div class="container">
+            <hr>
+<!--            <h3>감사리스트</h3>-->
+            <br>
+<!--             감사 리스트 붙일 곳 -->
+            <div class="thanksList"></div>
+        </div>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/4.12.1/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/4.12.1/firebase-auth.js"></script>
-    <script defer src="/__/firebase/4.12.1/firebase-database.js"></script>
-    <script defer src="/__/firebase/4.12.1/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/4.12.1/firebase-storage.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
-  </head>
-  <body>
-    <script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBFfUi9A7dJc8E7-NAAyh68OW6QFokJN3o",
-    authDomain: "cs252-lab6-58dac.firebaseapp.com",
-    databaseURL: "https://cs252-lab6-58dac.firebaseio.com",
-    projectId: "cs252-lab6-58dac",
-    storageBucket: "cs252-lab6-58dac.appspot.com",
-    messagingSenderId: "730586130212"
-  };
-  firebase.initializeApp(config);
-</script>
+        
+        <!--스크립트 부분. 자신의 스크립트 코드로 변경하세요! -->
+        <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+        <script>
+            var firebaseEmailAuth; //파이어베이스 email 인증 모듈 전역변수
+            var firebaseDatabase; //파이어베이스 db 모듈 전역변수
+            var name; //유저 이름
+            var loginUserKey; //로그인한 유저의 부모 key
+            var userInfo; //로그인한 유저의 정보 object type
+            
+            //파이어 베이스 초기화 코드
+            var config = {
+                apiKey: "AIzaSyBFfUi9A7dJc8E7-NAAyh68OW6QFokJN3o",
+                authDomain: "cs252-lab6-58dac.firebaseapp.com",
+                databaseURL: "https://cs252-lab6-58dac.firebaseio.com",
+                projectId: "cs252-lab6-58dac",
+                storageBucket: "cs252-lab6-58dac.appspot.com",
+                messagingSenderId: "730586130212"
+            };
+        //파이어베이스 초기화
+        firebase.initializeApp(config);
+        //인증모듈 객체 가져오기
+        firebaseEmailAuth = firebase.auth();
+        //데이터베이스 모듈객체 가져오기
+        firebaseDatabase = firebase.database();
+        
+        //세션 체크 함수
+        userSessionCheck();
+        
 
-  <button onclick="document.getElementById('id03').style.display='block'" style="width:auto;">Log in </button>
-  <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Sign Up</button>
-<div id="id01" class="modal">
-  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-  <form class="modal-content" action="./buttons.html">
-    <div class="container">
-      <h1>Sign Up</h1>
-      <p>Please fill in this form to create an account.</p>
-      <hr>
-      <label for="Username"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="Username" required>
+        
+        //유저가 로그인 했는지 안했는지 확인해주는 함수
+        function userSessionCheck() {
+            
+            
+            
+        //로그인이 되어있으면 - 유저가 있으면, user를 인자값으로 넘겨준다.
+        firebaseEmailAuth.onAuthStateChanged(function (user) {
+                            
+        if (user) {
+        //조회 - 데이터 베이스에 저장된 닉네임을 현재 접속되어 있는 user의 pk key 값을 이용해서 가져오기
+        firebaseDatabase.ref("users/" + user.uid).once('value').then(function (snapshot) {
+                                                                         
+        //자바스크립트 dom 선택자를 통해서 네비게이션 메뉴의 엘리먼트 변경해주기
+        document.getElementById("loginmenu").textContent = "Logout";
+        document.getElementById("loginmenu").href = "/logout.html";
+        document.getElementById("joinmenu").textContent = "Hello! " + snapshot.val().name;
+        document.getElementById("joinmenu").href = "#";
+                                                                     
+                                                            
+        document.getElementById("startWork").textContent = "Start Work!";
+        document.getElementById("startWork").href = "/buttons.html";
 
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-
-      <label for="psw-repeat"><b>Repeat Password</b></label>
-      <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
-      <div class="clearfix">
-        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="submit" class="signupbtn">Sign Up</button>
-      </div>
-    </div>
-  </form>
-</div>
-<!-- Log in -->
-<div id="id03" class="modal">
-  <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
-  <form class="modal-content" action="./buttons.html">
-    <div class="container">
-      <h1>Login</h1>
-      <hr>
-      <label for="Username"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="Username" required>
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-      <div class="clearfix">
-        <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="submit"  class="signupbtn">Log in</button>
-      </div>
-    </div>
-  </form>
-</div>
-<script>
-// var modal = document.getElementById('id01');
-
-window.onclick = function(event) {
-    if (event.target == document.getElementById('id01')) {
-        modal.style.display = "none";
-    }else if (event.target == document.getElementById('id03')){
-        modal.style.display = "none";
-
-    }
-}
-</script>
-
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-        try {
-          let app = firebase.app();
-          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+                                                                     
+                                                                     
+        name = snapshot.val().name;   //유저 닉네임은 계속 쓸거기 때문에 전역변수로 할당
+        loginUserKey = snapshot.key;  //로그인한 유저의 key도 계속 쓸 것이기 때문에 전역변수로 할당
+        userInfo = snapshot.val(); //snapshot.val()에 user 테이블에 있는 해당 개체 정보가 넘어온다. userInfo에 대입!
+                                                                                                              
+    //alert(userInfo.userid);  //uid는 db에서 user 테이블의 각 개체들의 pk 인데, 이 값은 인증에서 생성된 아이디의 pk 값과 같다. *중요!
+        return true
+        });
+                                             
+                                        
+        } else {
+             $('#comment').val("Login is required to leave review/question here.");
+                $(document).ready(function () {
+                                                               
+                    //메인화면 감사일기 쓰기버튼 눌렀을 때
+                    $(document).on('click', '.write', function () {
+                                                                              
+                    //네비게이션 메뉴의 text값 가져오기 - 자바스크립트 dom 방식으로 가져왔다.
+                    var seseionCheck = document.getElementById("loginmenu").textContent;
+                                                                              
+                    //내가 쓴글 가져오기 - jquery방식으로 가져왔다.
+                    comment = $('#comment').val();
+                    if (seseionCheck == "Logout") {
+                    //저장하기
+                    saveThanks();
+                    } else {
+                    alert("Login is required.")
+                    }
+                    });
+                });
+                              
+            return false
+            }
+        });
         }
-      });
-    </script>
-  </body>
+        
+</script>
+</body>
 </html>
