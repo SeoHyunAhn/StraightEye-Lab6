@@ -1,4 +1,5 @@
 var functions = require('firebase-functions');
+<<<<<<< HEAD
 var firebase = require("firebase");
 
 var admin = require("firebase-admin");
@@ -10,17 +11,27 @@ admin.initializeApp({
   databaseURL: "https://cs252-lab6-58dac.firebaseio.com"
 });
 
+=======
+const admin = require('firebase-admin');
+admin.initializeApp();
+>>>>>>> Youngjoon
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 const util = require('util');
+<<<<<<< HEAD
 const cors = require('cors');
 
+=======
+>>>>>>> Youngjoon
 var path = require("path");
 var CopyleaksCloud = require('plagiarism-checker');
 var clCloud = new CopyleaksCloud();
 var config = clCloud.getConfig();
+<<<<<<< HEAD
 // Automatically allow cross-origin requests
+=======
+>>>>>>> Youngjoon
 
 var upload = multer({
   dest: 'uploads/'
@@ -33,6 +44,68 @@ var _storage = multer.diskStorage({
     cb(null, file.originalname);
   }
 })
+<<<<<<< HEAD
+=======
+
+'use strict';
+
+let https = require ('https');
+
+let host = 'api.cognitive.microsoft.com';
+let path = '/bing/v7.0/spellcheck';
+
+/* NOTE: Replace this example key with a valid subscription key (see the Prequisites section above). Also note v5 and v7 require separate subscription keys. */
+let key = 'ce04e96fbe3c474cac2cd0d62de82fab';
+
+// These values are used for optional headers (see below).
+// let CLIENT_ID = "<Client ID from Previous Response Goes Here>";
+// let CLIENT_IP = "999.999.999.999";
+// let CLIENT_LOCATION = "+90.0000000000000;long: 00.0000000000000;re:100.000000000000";
+
+let mkt = "en-US";
+let mode = "proof";
+let text = "Hollo, wrld!";
+let query_string = "?mkt=" + mkt + "&mode=" + mode;
+
+let request_params = {
+    method : 'POST',
+    hostname : host,
+    path : path + query_string,
+    headers : {
+        'Content-Type' : 'application/x-www-form-urlencoded',
+        'Content-Length' : text.length + 5,
+        'Ocp-Apim-Subscription-Key' : key,
+//        'X-Search-Location' : CLIENT_LOCATION,
+//        'X-MSEdge-ClientID' : CLIENT_ID,
+//        'X-MSEdge-ClientIP' : CLIENT_ID,
+    }
+};
+
+let response_handler = function (response) {
+    let body = '';
+    response.on ('data', function (d) {
+        body += d;
+    });
+    response.on ('end', function () {
+        console.log (body);
+    });
+    response.on ('error', function (e) {
+        console.log ('Error: ' + e.message);
+    });
+};
+
+let req = https.request (request_params, response_handler);
+req.write ("text=" + text);
+req.end ();
+
+
+
+
+
+
+
+
+>>>>>>> Youngjoon
 //Papago translate keys
 var client_id = 'r8JE23ZC9yVS7inEevOk';
 var client_secret = 'k236n9DBjZ';
@@ -50,6 +123,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.locals.pretty = true;
 app.use('/user', express.static('uploads'));
+<<<<<<< HEAD
 app.use('/css', express.static('public'));
 app.use(cors({ origin: true }));
 //인증모듈 객체 가져오기
@@ -63,6 +137,10 @@ app.set('views', './views');
 app.set('view engine', 'jade');
 
 
+=======
+app.set('views', './views');
+app.set('view engine', 'jade');
+>>>>>>> Youngjoon
 app.get('/upload-enc', function(req, res) {
   res.render('upload-enc');
 });
@@ -78,8 +156,14 @@ app.get('/buttons', function(req, res) {
   res.sendFile(path.join(__dirname + '/buttons.html'));
   // });
 });
+<<<<<<< HEAD
 app.get(['/translate.html', 'translate'], function(req, res) {
   res.sendFile(path.join(__dirname + '/translate.html'));
+=======
+app.get('/translate', function(req, res) {
+  res.sendFile(path.join(__dirname + '/translate.html'));
+
+>>>>>>> Youngjoon
 })
 app.get('/spell', function(req, res) {
   res.sendFile(path.join(__dirname + '/spell.html'));
@@ -87,6 +171,7 @@ app.get('/spell', function(req, res) {
 })
 app.get('/plagiarism', function(req, res) {
   res.sendFile(path.join(__dirname + '/plagiarism.html'));
+<<<<<<< HEAD
 })
 app.get(['/sorting', "/sorting.html"], function(req, res) {
   res.sendFile(path.join(__dirname + '/sorting.html'));
@@ -184,6 +269,10 @@ app.post('/sorting', function(req, res) {
   res.send([splitedString]);
 })
 
+=======
+
+})
+>>>>>>> Youngjoon
 app.post('/plagiarism', function(req, res) {
       clCloud.login(email, apikey, config.E_PRODUCT.Businesses, callback);
       res.send("Success");
@@ -192,6 +281,7 @@ function callback(resp, err) {
   clCloud.getCreditBalance(function(resp, err) {
       var _customHeaders = {};
       _customHeaders[config.SANDBOX_MODE_HEADER] = true;
+<<<<<<< HEAD
       _customHeaders[config.HTTP_CALLBACK] = 'https://cs252-lab6-58dac.firebaseapp.com/plagiarism'
       var url = 'https://copyleaks.com'; // URL to scan
       var _pid;
@@ -230,6 +320,21 @@ function callback(resp, err) {
 	   });
   // })
 }
+=======
+      _customHeaders[config.HTTP_CALLBACK] = 'http://your.website.com/callbacks/'
+      var url = 'https://copyleaks.com'; // URL to scan
+      clCloud.createByText('helworld',_customHeaders,function(resp,err){
+          if(resp && resp.ProcessId){
+            console.log('API: create-by-text');
+            console.log('Process has been created: '+resp.ProcessId);
+             console.log(util.inspect(resp, false, null))
+          }
+        if(!isNaN(err))
+          console.log('Error: ' + err);
+        });
+    })
+  }
+>>>>>>> Youngjoon
 
 
 app.post('/translate_text', function(req, res) {
@@ -248,7 +353,10 @@ app.post('/translate_text', function(req, res) {
       'X-Naver-Client-Secret': client_secret
     }
   };
+<<<<<<< HEAD
   console.log(req);
+=======
+>>>>>>> Youngjoon
 
   request.post(options, function(error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -270,7 +378,10 @@ app.post('/translate_text', function(req, res) {
         }
       }
       console.log(n[s + 2]);
+<<<<<<< HEAD
       response.write(n[s+2]);
+=======
+>>>>>>> Youngjoon
       res.end(n[s + 2]);
       // res.end(body);
     } else {
@@ -282,6 +393,7 @@ app.post('/translate_text', function(req, res) {
  app.listen(3000, function() {
   console.log('Connected, 3000 port!');
 })
+<<<<<<< HEAD
 
 
 
@@ -319,3 +431,5 @@ function sortByCount (wordsMap) {
   });
   return finalWordsArray;
 }
+=======
+>>>>>>> Youngjoon

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
     <head>
         <title>FileAnalyzer</title>
         <meta charset="utf-8">
@@ -189,6 +190,115 @@
             return false
             }
         });
+=======
+  <head>
+    <link rel="stylesheet" href="css/style_log.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CS252 LAB06</title>
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/4.12.1/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/4.12.1/firebase-auth.js"></script>
+    <script defer src="/__/firebase/4.12.1/firebase-database.js"></script>
+    <script defer src="/__/firebase/4.12.1/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/4.12.1/firebase-storage.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+
+    </head>
+  <body>
+      <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+      <script>
+          // Initialize Firebase
+          var config = {
+              apiKey: "AIzaSyBFfUi9A7dJc8E7-NAAyh68OW6QFokJN3o",
+              authDomain: "cs252-lab6-58dac.firebaseapp.com",
+              databaseURL: "https://cs252-lab6-58dac.firebaseio.com",
+              projectId: "cs252-lab6-58dac",
+              storageBucket: "cs252-lab6-58dac.appspot.com",
+              messagingSenderId: "730586130212"
+          };
+      firebase.initializeApp(config);
+          </script>
+      </script>
+      <button onclick="document.getElementById('id03').style.display='block'" style="width:auto;">Log in </button>
+      <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Sign Up</button>
+      <!-- SIGN UP -->
+      <div id="id01" class="modal">
+          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+          <form class="modal-content" action="./buttons.html">
+              <div class="container">
+                  <h1>Sign Up</h1>
+                  <p>Please fill in this form to create an account.</p>
+                  <hr>
+                  <label for="Username"><b>Username</b></label>
+                  <input type="text" placeholder="Enter Username" name="Username" required>
+                      
+                      <label for="psw"><b>Password</b></label>
+                      <input type="password" placeholder="Enter Password" name="psw" required>
+                          
+                          <label for="psw-repeat"><b>Repeat Password</b></label>
+                          <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+                              <div class="clearfix">
+                                  <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                                  <button type="submit" class="signupbtn">Sign Up</button>
+                              </div>
+                              </div>
+          </form>
+      </div>
+      <!-- Log in -->
+      <div id="id03" class="modal">
+          <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
+          <form class="modal-content" action="./buttons.html">
+              <div class="container">
+                  <h1>Login</h1>
+                  <hr>
+                  <label for="Username"><b>Username</b></label>
+                  <input type="text" placeholder="Enter Username" name="Username" required>
+                      <label for="psw"><b>Password</b></label>
+                      <input type="password" placeholder="Enter Password" name="psw" required>
+                          <div class="clearfix">
+                              <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
+                              <button type="submit"  class="signupbtn">Log in</button>
+                          </div>
+                          </div>
+          </form>
+      </div>
+      <script>
+          // var modal = document.getElementById('id01');
+          
+          window.onclick = function(event) {
+              if (event.target == document.getElementById('id01')) {
+                  modal.style.display = "none";
+              }else if (event.target == document.getElementById('id03')){
+                  modal.style.display = "none";
+                  
+              }
+          }
+      </script>
+
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        // // The Firebase SDK is initialized and available here!
+        //
+        // firebase.auth().onAuthStateChanged(user => { });
+        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+        // firebase.messaging().requestPermission().then(() => { });
+        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+        //
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+        try {
+          let app = firebase.app();
+          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+        } catch (e) {
+          console.error(e);
+          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+>>>>>>> Youngjoon
         }
 
 </script>

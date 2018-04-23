@@ -1,7 +1,11 @@
 body {
   font: 20px 'Lucida Grande', Arial, Cambria, sans-serif;
   color: #404040;
+<<<<<<< HEAD
   background: #317ED5;'
+=======
+  background: #517CA4;'
+>>>>>>> Youngjoon
   text-align: center;
   text-rendering: auto;
   line-height: 1.6em;
@@ -17,7 +21,11 @@ body {
   position: relative;
   padding: .8em 1.3em;
   padding-right: 1.7em;
+<<<<<<< HEAD
   background: #5042f4;
+=======
+  background: #963d82;
+>>>>>>> Youngjoon
   font-size: 0.9em;
   border: none;
   color: white;
@@ -72,4 +80,8 @@ body {
   }
   to {
     transform: rotate(30deg);
+<<<<<<< HEAD
   }
+=======
+  }
+>>>>>>> Youngjoon

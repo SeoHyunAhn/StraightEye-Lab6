@@ -4,7 +4,10 @@ body {
   color: #404040;
   background: #317ED5;
   text-align: center;
+<<<<<<< HEAD
 
+=======
+>>>>>>> Youngjoon
   text-rendering: auto;
   line-height: 1.6em;
   padding: 35%;
@@ -82,7 +85,10 @@ button {
     cursor: pointer;
     width: 100%;
     opacity: 0.9;
+<<<<<<< HEAD
 
+=======
+>>>>>>> Youngjoon
     position: relative;
     /*padding-right: 1em;*/
     font-size: 2em;
