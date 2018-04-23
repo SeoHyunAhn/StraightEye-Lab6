@@ -1,26 +1,175 @@
 <!DOCTYPE html>
 <html>
-    <style>
-        body {background-color: #517CA4;}
-        h1   { font-family:verdana; font-size:200%;}
-        p    {font-size:150%;}
-    </style>
+<head>
+    <meta charset="UTF-8"> 
+    <title>Spell Check</title>
 
-    <body>
-        <img src="LogoLab6.jpg" width="150" height="100">
-        <h1 title="spellcheckh1">Spelling Check</h1>
+<style type="text/css">
+    body {
+        background-color: #517CA4;
+    }
+
+    html, body, div, p, h1, h2 {
+        font-family: Verdana, "Lucida Sans", sans-serif;
+    }
+
+    html, body, div, p  {
+        font-weight: normal;
+    }
+    h1, h2 {
+        font-weight: bold;
+    }
+    sup {
+        font-weight: normal;
+    }
+
+    html, body, div, p  {
+        font-size: 12px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+    h2 {
+        font-size: 16px;
+    }
+    h1, h2 {
+        clear: left;
+    }
+
+</style>
+
+<script type="text/javascript">
+
+getSubscriptionKey = function() {
+
+    var COOKIE = "bing-spell-check-api-key";   // name used to store API key in key/value storage
+
+    function findCookie(name) {
+        var cookies = document.cookie.split(";");
+        for (var i = 0; i < cookies.length; i++) {
+            var keyvalue = cookies[i].split("=");
+            if (keyvalue[0].trim() === name) {
+                return keyvalue[1];
+            }
+        }
+        return "";
+        }
+
+    function getSubscriptionKeyCookie() {
+        var key = findCookie(COOKIE);
+        while (key.length !== 32) {
+            key = prompt("Enter Bing Spell Check API subscription key:", "").trim();
+            var expiry = new Date();
+            expiry.setFullYear(expiry.getFullYear() + 2);
+            document.cookie = COOKIE + "=" + key.trim() + "; expires=" + expiry.toUTCString();
+        }
+        key = "ce04e96fbe3c474cac2cd0d62de82fab";
+        return key;
+    }
+
+    function getSubscriptionKeyLocalStorage() {
+        var key = localStorage.getItem(COOKIE) || "";
+        while (key.length !== 32)
+            key = prompt("Enter Bing Spell Check API subscription key:", "").trim();
+        localStorage.setItem(COOKIE, key)
+        return key;
+    }
+
+    function getSubscriptionKey(invalidate) {
+        if (invalidate) {
+            try {
+                localStorage.removeItem(COOKIE);
+            } catch (e) {
+                document.cookie = COOKIE + "=";
+            }
+        } else {
+            try {
+                return getSubscriptionKeyLocalStorage();
+            } catch (e) {
+                return getSubscriptionKeyCookie();
+            }
+        }
+    }
+
+    return getSubscriptionKey;
+
+}();
+
+function pre(text) {
+    return "<pre>" + text.replace(/&/g, "&amp;").replace(/</g, "&lt;") + "</pre>"
+}
+
+function renderSearchResults(results) {
+    document.getElementById("results").innerHTML = pre(JSON.stringify(results, null, 2));
+}
+
+function renderErrorMessage(message, code) {
+    if (code)
+        document.getElementById("results").innerHTML = "<pre>Status " + code + ": " + message + "</pre>";
+    else
+        document.getElementById("results").innerHTML = "<pre>" + message + "</pre>";
+}
+
+function bingSpellCheck(query, key) {
+    var endpoint = "https://api.cognitive.microsoft.com/bing/v7.0/spellcheck/";
+
+    var request = new XMLHttpRequest();
+
+    try {
+        request.open("GET", endpoint + "?mode=proof&mkt=en-US&text=" + encodeURIComponent(query));
+    }
+    catch (e) {
+        renderErrorMessage("Bad request");
+        return false;
+    }
+
+    request.setRequestHeader("Ocp-Apim-Subscription-Key", key);
+
+    request.addEventListener("load", function() {
+        if (this.status === 200) {
+            renderSearchResults(JSON.parse(this.responseText));
+        }
+        else {
+            if (this.status === 401) getSubscriptionKey(true);
+            renderErrorMessage(this.statusText, this.status);
+        }
+    });
+
+    request.addEventListener("error", function() {
+        renderErrorMessage("Network error");
+    });
+
+    request.addEventListener("abort", function() {
+        renderErrorMessage("Request aborted");
+    });
+
+    request.send();
+    return false;
+}
+</script>
+
+</head>
+
+<body onload="document.forms.bing.query.focus(); getSubscriptionKey();">
+
+    <img src="LogoLab6.jpg" width="150" height="100">
+    <h1 title="spellcheckh1">Spelling Check</h1>
         <hr>
-        <p title="paragraphmsg"><i>Add your PDF file.</i></p>
-        <input type="file" id="myFile">
-        <p style="font-size:100%;"> Click the button to upload pdf.</p>
-        <input id="check" type="button" value="check" onclick="doFunction();" />
-        <hr>
-        <p style="font-size:100%;"> Write the text button to spelling check.</p>
-        <textarea name="myTextArea"  id="myTextArea" cols="30" rows="4" style = 'max-width:500px;width:100%;height:200px;margin-bottom:20px' contenteditable="true" spellcheck="true">
-        This is a simple exampl of Spell-checking 
-        </textarea>
+    <p title="textmsg"><i>Add your PDF file.</i></p>
+    <input type="file" id="myFile">
+    <p style="font-size:100%;"> Click the button to upload pdf.</p>
+    <input id="check" type="button" value="check" onclick="doFunction();" />
+    <hr>
+    <p style="font-size:100%;"> Write the text button to spelling check.</p>
+    <form name="bing" onsubmit="return bingSpellCheck(this.query.value, getSubscriptionKey())">
+    <h2>Spell Check</h2>
+    <input type="text" name="query" size="80" placeholder="Spell Check" autocomplete=off>
+    </form>
 
-
-
-    </body>
+    <h3>Results</h3>    
+    <div id="results">
+    <p>None yet.</p>
+    </div>
+</body>
 </html>
