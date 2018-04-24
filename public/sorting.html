@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+          <link rel="stylesheet" href="css/search&sort.css">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+              <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <title>Title</title>
+</head>
+
+<body>
+    
+    <!-- 네비게이션 바 시작 -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">File Analyzer</a>
+            </div>
+            
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a id="backtoFunc" href="/buttons.html">Functions</a>
+                    </li>
+                    <li>
+                        <a id="loginmenu" href="/logout.html">Logout</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+ 
+    
+    <!-- 네비게이션 바 끝 -->
+
+
+    <p id="infotext">This will sort by ascending order .</p>
+  <textarea name="sortingText" id="sortingText"></textarea>
+  <textarea id="sorted"></textarea>
+
+  <button onclick="myFunction()">Try it</button>
+  <button onclick="reverse()">Reverse</button>
+  
+</body>
+<script>
+  function myFunction() {
+    var initalString = document.getElementById("sortingText").value;
+    var splitedString = initalString.split("\n");
+    splitedString.sort(function(a, b) {
+      if (isNaN(a) || isNaN(b)) {
+        return a > b ? 1 : -1;
+      }
+      return a - b;
+    });
+
+    var temp = "";
+    for (var i = 0; i < splitedString.length; i++) {
+      temp += ( splitedString[i]+"\n");
+    }
+    document.getElementById("sorted").innerHTML = temp;
+    document.getElementById("infotext").innerHTML = "This will sort by ascending order";
+  }
+  function reverse() {
+    var initalString = document.getElementById("sortingText").value;
+    var splitedString = initalString.split("\n");
+    splitedString.sort(function(a, b) {
+      if (isNaN(a) || isNaN(b)) {
+        return a > b ? 1 : -1;
+      }
+      return a - b;
+    });
+
+    var temp = "";
+    splitedString.reverse();
+    for (var i = 0; i < splitedString.length; i++) {
+      temp += ( splitedString[i]+"\n");
+    }
+    document.getElementById("sorted").innerHTML = temp;
+    document.getElementById("infotext").innerHTML = "This will sort by descending order";
+
+  }
+</script>
+
+</html>
