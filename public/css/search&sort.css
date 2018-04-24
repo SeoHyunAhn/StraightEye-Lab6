@@ -5,11 +5,37 @@ body {
   text-align: center;
   text-rendering: auto;
   line-height: 1.6em;
-  padding: 35%;
+  padding: 5%;
   padding-top: 25vh;
 }
-* {
-  box-sizing: border-box;
+#sortingText, #entireWord {
+    width: 50%;
+    height: 400px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 10px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+    margin: auto;
+    float: left;
+}
+#sorted, #demo {
+  font: 14px 'Lucida Grande', Arial, Cambria, sans-serif;
+      width: 50%;
+      height: 400px;
+      padding: 10px 10px;
+      display: inline-block;
+      border: 10px solid #ccc;
+      background: #FFFFFF;
+      border-radius: 4px;
+      float: right;
+      margin: auto;
+      box-sizing: border-box;
+      resize: vertical;
+  }
+
 }
 .button {
   display: inline-block;
@@ -32,12 +58,6 @@ body {
   text-align: center;
   transition: .2s;
   transform-origin: 50% 50%;
-}.button:hover {
-  background: #3db5e2;
-}
-.button:active,
-.button:focus {
-  background: #104559;
 }
 .button {
   min-width: 15em;

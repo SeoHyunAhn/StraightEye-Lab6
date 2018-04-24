@@ -1,38 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/search&sort.css">
+  <link rel="stylesheet" href="css/search&sort.css">
   <title>Title</title>
 </head>
+
 <body>
-    <input type="text" name="sortingText" id = "sortingText">
-    <button onclick="myFunction()">Try it</button>
-  <p>This will sort by ascending order .</p>
+  <textarea name="sortingText" id="sortingText"></textarea>
   <p id="sorted"></p>
 
+  <button onclick="myFunction()">Try it</button>
+  <button onclick="reverse()">Reverse</button>
+  <p id="infotext">This will sort by ascending order .</p>
 </body>
 <script>
-function myFunction() {
-var initalString = document.getElementById("sortingText").value;
-var splitedString = initalString.split(" ");
-console.log(splitedString);
+  function myFunction() {
+    var initalString = document.getElementById("sortingText").value;
+    var splitedString = initalString.split("\n");
+    splitedString.sort(function(a, b) {
+      if (isNaN(a) || isNaN(b)) {
+        return a > b ? 1 : -1;
+      }
+      return a - b;
+    });
 
-console.log("=======================");
-splitedString.sort(function(a,b) {
-  if (isNaN(a) || isNaN(b)) {
-    return a > b ? 1 : -1;
+    var temp = "";
+    for (var i = 0; i < splitedString.length; i++) {
+      temp += ("<br>" + splitedString[i]);
+    }
+    document.getElementById("sorted").innerHTML = temp;
+    document.getElementById("infotext").innerHTML = "This will sort by ascending order";
   }
-  return a - b;
-});
+  function reverse() {
+    var initalString = document.getElementById("sortingText").value;
+    var splitedString = initalString.split("\n");
+    splitedString.sort(function(a, b) {
+      if (isNaN(a) || isNaN(b)) {
+        return a > b ? 1 : -1;
+      }
+      return a - b;
+    });
 
-var temp="";
-for (var i = 0; i < splitedString.length; i++) {
-    temp +=("<br>"+splitedString[i]);
-  console.log(splitedString[i]);
-}
-document.getElementById("sorted").innerHTML =temp;
-}
+    var temp = "";
+    splitedString.reverse();
+    for (var i = 0; i < splitedString.length; i++) {
+      temp += ("<br>" + splitedString[i]);
+    }
+    document.getElementById("sorted").innerHTML = temp;
+    document.getElementById("infotext").innerHTML = "This will sort by descending order";
+
+  }
 </script>
 
 </html>

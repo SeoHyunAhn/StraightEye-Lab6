@@ -1,75 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/search&sort.css">
+  <link rel="stylesheet" href="css/search&sort.css">
   <title>Title</title>
 </head>
+
 <body>
   <!-- <form action="search_word" method="post"> -->
-    <input type="text" name="entireWord" id="entireWord">
-
-<button onclick="myFunction()">Try it</button>
+  <textarea type="text" name="entireWord" id="entireWord"></textarea>
+  <textarea id="demo"></textarea>
+  <button onclick="myFunction()">Try it</button>
   <!-- </form> -->
   <p>Word frequency</p>
-  <p id="demo"></p>
 
 </body>
 
 <script>
-function myFunction() {
-var data = document.getElementById("entireWord").value;
+  function myFunction() {
+    var data = document.getElementById("entireWord").value;
+    var wordsArray = splitByWords(data);
+    var wordsMap = createWordMap(wordsArray);
+    var finalWordsArray = sortByCount(wordsMap);
 
-var wordsArray = splitByWords(data);
-var wordsMap = createWordMap(wordsArray);
-var finalWordsArray = sortByCount(wordsMap);
-
-console.log(finalWordsArray);
-console.log('The word "' + finalWordsArray[0].name + '" appears the most in the file ' +
-  finalWordsArray[0].total + ' times');
-// res.send([finalWordsArray]);
-var temp = "";
-for (var i = 0; i < finalWordsArray.length; i++) {
-  temp +=("<br>"+finalWordsArray[i].name+ " , " +finalWordsArray[i].total);
-}
-//document.getElementById("demo").textContent = temp;
-temp +=('<br>The word "' + finalWordsArray[0].name + '" appears the most in the file ' +
-  finalWordsArray[0].total + ' times');
-document.getElementById("demo").innerHTML =temp;
-}
-function splitByWords (text) {
-  // split string by spaces (including spaces, tabs, and newlines)
-  var wordsArray = text.split(/\s+/);
-  return wordsArray;
-}
-function createWordMap (wordsArray) {
-  var wordsMap = {};
-  wordsArray.forEach(function (key) {
-    if (wordsMap.hasOwnProperty(key)) {
-      wordsMap[key]++;
-    } else {
-      wordsMap[key] = 1;
+    console.log(finalWordsArray);
+    console.log('The word "' + finalWordsArray[0].name + '" appears the most in the file ' +
+      finalWordsArray[0].total + ' times');
+    // res.send([finalWordsArray]);
+    var temp = "";
+    for (var i = 0; i < finalWordsArray.length; i++) {
+      temp += ( finalWordsArray[i].name + " , " + finalWordsArray[i].total+"\n");
     }
-  });
-  return wordsMap;
-}
+    //document.getElementById("demo").textContent = temp;
+    temp += ("The word " + finalWordsArray[0].name + '" appears the most in the file ' +
+      finalWordsArray[0].total + ' times');
+    document.getElementById("demo").innerHTML = temp;
+  }
+
+  function splitByWords(text) {
+    // split string by spaces (including spaces, tabs, and newlines)
+    var wordsArray = text.split(/\s+/);
+    return wordsArray;
+  }
+
+  function createWordMap(wordsArray) {
+    var wordsMap = {};
+    wordsArray.forEach(function(key) {
+      if (wordsMap.hasOwnProperty(key)) {
+        wordsMap[key]++;
+      } else {
+        wordsMap[key] = 1;
+      }
+    });
+    return wordsMap;
+  }
 
 
-function sortByCount (wordsMap) {
-  var finalWordsArray = [];
-  finalWordsArray = Object.keys(wordsMap).map(function(key) {
-    return {
-      name: key,
-      total: wordsMap[key]
-    };
-  });
+  function sortByCount(wordsMap) {
+    var finalWordsArray = [];
+    finalWordsArray = Object.keys(wordsMap).map(function(key) {
+      return {
+        name: key,
+        total: wordsMap[key]
+      };
+    });
 
-  finalWordsArray.sort(function(a, b) {
-    return b.total - a.total;
-  });
-  return finalWordsArray;
-}
-
+    finalWordsArray.sort(function(a, b) {
+      return b.total - a.total;
+    });
+    return finalWordsArray;
+  }
 </script>
 
 </html>
