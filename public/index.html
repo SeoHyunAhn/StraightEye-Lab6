@@ -7,14 +7,14 @@
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-                    <!--Import Google Icon Font-->
+                    <!—Import Google Icon Font—>
                     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
                         
-                        <!--Import materialize.css-->
-                        <!-- Compiled and minified CSS -->
+                        <!—Import materialize.css—>
+                        <!— Compiled and minified CSS —>
                         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
                             
-                            <!--Let browser know website is optimized for mobile-->
+                            <!—Let browser know website is optimized for mobile—>
                             <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                             <style>
                                 ::-webkit-scrollbar {
@@ -22,9 +22,8 @@
                                 }
                             .collection { cursor: pointer;}
                                 </style>
-                    
-                    </head>
-    
+                            
+                            </head>
     <body>
         
         <!-- 네비게이션 바 시작 -->
@@ -90,7 +89,7 @@
         <div class="container">
             <!--div class="form-group"-->
             <label for="comment">Review/Question:</label>
-            <textarea style="height:100px;" class="textarea" width="100%" rows="100" placeholder="Please leave a review or question"></textarea>
+            <textarea style="height:100px;" class="textarea" width="100%" rows="100" placeholder="Please leave a review/question"></textarea>
             <br>
             <br>
             
@@ -171,11 +170,14 @@
         //유저가 로그인 했는지 안했는지 확인해주는 함수
         function userSessionCheck() {
             
+            //로그인이 되어있으면 - 유저가 있으면, user를 인자값으로 넘겨준다.
             firebaseEmailAuth.onAuthStateChanged(function (user) {
                                                  
                                                  if (user) {
                                                  //조회 - 데이터 베이스에 저장된 닉네임을 현재 접속되어 있는 user의 pk key 값을 이용해서 가져오기
                                                  firebaseDatabase.ref("users/" + user.uid).once('value').then(function (snapshot) {
+                                                                                                              
+                                                                                                              //자바스크립트 dom 선택자를 통해서 네비게이션 메뉴의 엘리먼트 변경해주기
                                                                                                               document.getElementById("loginmenu").textContent = "Logout";
                                                                                                               document.getElementById("loginmenu").href = "/logout.html";
                                                                                                               document.getElementById("joinmenu").textContent = "Hello! " + snapshot.val().name;
@@ -225,7 +227,8 @@
         
         function get_memo_list() {
             
-            var memoRef = firebaseDatabase.ref('memos/' + memoUser.uid );
+            var memoRef = firebaseDatabase.ref('memos/');
+            //var memoRef = firebaseDatabase.ref("users/" + user.uid);
             memoRef.on('child_added', on_child_added);
             memoRef.on('child_changed', function(data) {
                        
@@ -261,9 +264,16 @@
         
         function fn_get_data_one(key) {
             selectedKey = key;
-            var memoRef = firebaseDatabase.ref('memos/' + memoUser.uid + '/' + key).once('value').then(function(snapshot) {
-                                                                                                       $(".textarea").val(snapshot.val().txt);
-                                                                                                       });
+            
+            var memoRef = firebaseDatabase.ref('memos/' + key).once('value').then(function(snapshot) {
+                                                                                  $(".textarea").val(snapshot.val().txt);
+                                                                                  });
+                                                                                  
+                                                                                  /*
+                                                                                   var memoRef = firebaseDatabase.ref('memos/' + memoUser.uid + '/' + key).once('value').then(function(snapshot) {
+                                                                                   $(".textarea").val(snapshot.val().txt);
+                                                                                   });
+                                                                                   */
         }
         
         function fn_delete_data(key) {
@@ -271,7 +281,9 @@
                 return;
             }
             
-            var memoRef = firebaseDatabase.ref('memos/' + memoUser.uid + '/' + key);
+            //var memoRef = firebaseDatabase.ref('memos/' + memoUser.uid + '/' + key);
+            
+            var memoRef = firebaseDatabase.ref('memos/' + key);
             
             memoRef.remove();
             $("#"+key).remove();
@@ -279,7 +291,8 @@
         }
         
         function save_data() {
-            var memoRef = firebaseDatabase.ref('memos/' + memoUser.uid );
+            //var memoRef = firebaseDatabase.ref('memos/' + memoUser.uid );
+            var memoRef = firebaseDatabase.ref('memos/');
             //push
             var txt = $(".textarea").val();
             //var title = txt.indexOf('\n')
@@ -289,7 +302,9 @@
             }
             
             if( selectedKey ) {
-                memoRef = firebaseDatabase.ref('memos/' + memoUser.uid + '/' + selectedKey);
+                //memoRef = firebaseDatabase.ref('memos/' + memoUser.uid + '/' + selectedKey);
+                memoRef = firebaseDatabase.ref('memos/' + selectedKey);
+                
                 memoRef.update({
                                txt : txt,
                                createDate : new Date().getTime(),
