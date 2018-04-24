@@ -1,6 +1,6 @@
 body {
-  font: 20px 'Lucida Grande', Arial, Cambria, sans-serif;
-  color: #404040;
+  font: 20px 'Times New Roman', Arial, Cambria, sans-serif;
+  color: #ffffff;
   background: #317ED5;'
   text-align: center;
   text-rendering: auto;
@@ -9,6 +9,7 @@ body {
   padding-top: 25vh;
 }
 #sortingText, #entireWord {
+  font: 14px 'Lucida Grande', Arial, Cambria, sans-serif;
     width: 50%;
     height: 400px;
     padding: 12px 20px;

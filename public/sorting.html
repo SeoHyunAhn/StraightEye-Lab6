@@ -9,7 +9,7 @@
 
 <body>
   <textarea name="sortingText" id="sortingText"></textarea>
-  <p id="sorted"></p>
+  <textarea id="sorted"></textarea>
 
   <button onclick="myFunction()">Try it</button>
   <button onclick="reverse()">Reverse</button>
@@ -28,7 +28,7 @@
 
     var temp = "";
     for (var i = 0; i < splitedString.length; i++) {
-      temp += ("<br>" + splitedString[i]);
+      temp += ( splitedString[i]+"\n");
     }
     document.getElementById("sorted").innerHTML = temp;
     document.getElementById("infotext").innerHTML = "This will sort by ascending order";
@@ -46,7 +46,7 @@
     var temp = "";
     splitedString.reverse();
     for (var i = 0; i < splitedString.length; i++) {
-      temp += ("<br>" + splitedString[i]);
+      temp += ( splitedString[i]+"\n");
     }
     document.getElementById("sorted").innerHTML = temp;
     document.getElementById("infotext").innerHTML = "This will sort by descending order";
