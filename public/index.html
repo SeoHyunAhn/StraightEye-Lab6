@@ -229,7 +229,8 @@
 
         function get_memo_list() {
           
-            var memoRef = firebaseDatabase.ref('memos/' + memoUser.uid );
+            var memoRef = firebaseDatabase.ref('memos/');
+            //var memoRef = firebaseDatabase.ref("users/" + user.uid);
             memoRef.on('child_added', on_child_added);
             memoRef.on('child_changed', function(data) {
           
@@ -265,9 +266,16 @@
 
         function fn_get_data_one(key) {
           selectedKey = key;
+          
+          var memoRef = firebaseDatabase.ref('memos/' + key).once('value').then(function(snapshot) {
+            $(".textarea").val(snapshot.val().txt);
+          });
+
+          /*
           var memoRef = firebaseDatabase.ref('memos/' + memoUser.uid + '/' + key).once('value').then(function(snapshot) {
             $(".textarea").val(snapshot.val().txt);
           });
+          */
         }
 
         function fn_delete_data(key) {
@@ -275,7 +283,9 @@
             return;
           }
 
-          var memoRef = firebaseDatabase.ref('memos/' + memoUser.uid + '/' + key);
+          //var memoRef = firebaseDatabase.ref('memos/' + memoUser.uid + '/' + key);
+
+          var memoRef = firebaseDatabase.ref('memos/' + key);
 
           memoRef.remove();
           $("#"+key).remove();
@@ -283,7 +293,8 @@
         }
 
         function save_data() {
-          var memoRef = firebaseDatabase.ref('memos/' + memoUser.uid );
+          //var memoRef = firebaseDatabase.ref('memos/' + memoUser.uid );
+          var memoRef = firebaseDatabase.ref('memos/');
           //push
           var txt = $(".textarea").val();
           //var title = txt.indexOf('\n')
@@ -293,7 +304,9 @@
           }
 
           if( selectedKey ) {
-            memoRef = firebaseDatabase.ref('memos/' + memoUser.uid + '/' + selectedKey);
+            //memoRef = firebaseDatabase.ref('memos/' + memoUser.uid + '/' + selectedKey);
+            memoRef = firebaseDatabase.ref('memos/' + selectedKey);
+
             memoRef.update({
               txt : txt,
               createDate : new Date().getTime(),
