@@ -76,7 +76,7 @@
     var firebaseEmailAuth; //파이어베이스 email 인증 모듈 전역변수
     var firebaseDatabase; //파이어베이스 db 모듈 전역변수
     var userInfo; //가입한 유저의 정보. object 타입
-    //파이어 베이스 초기화 코드
+    
     var config = {
         apiKey: "AIzaSyBFfUi9A7dJc8E7-NAAyh68OW6QFokJN3o",
         authDomain: "cs252-lab6-58dac.firebaseapp.com",
@@ -97,8 +97,7 @@
       
       //가입버튼 눌렀을 때
       $(document).on('click','.login',function(){
-        
-        //제이쿼리 선택자와 val() 함수를 이용해서 이메일,비밀번호 값을 가져온다. 
+         
         var email = $('#email').val();
         var password = $('#pwd').val();
 //        alert("로그인 버튼 눌렸음!!!!!!!" +":"+ password);
