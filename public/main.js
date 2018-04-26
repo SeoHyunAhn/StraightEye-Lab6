@@ -1,5 +1,4 @@
 var functions = require('firebase-functions');
-<<<<<<< HEAD
 var firebase = require("firebase");
 
 var admin = require("firebase-admin");
@@ -10,28 +9,17 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://cs252-lab6-58dac.firebaseio.com"
 });
-
-=======
-const admin = require('firebase-admin');
-admin.initializeApp();
->>>>>>> Youngjoon
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 const util = require('util');
-<<<<<<< HEAD
 const cors = require('cors');
-
-=======
->>>>>>> Youngjoon
 var path = require("path");
+var bkfd2Password = require("pbkdf2-password");
+var hasher = bkfd2Password();
 var CopyleaksCloud = require('plagiarism-checker');
 var clCloud = new CopyleaksCloud();
 var config = clCloud.getConfig();
-<<<<<<< HEAD
-// Automatically allow cross-origin requests
-=======
->>>>>>> Youngjoon
 
 var upload = multer({
   dest: 'uploads/'
@@ -44,15 +32,12 @@ var _storage = multer.diskStorage({
     cb(null, file.originalname);
   }
 })
-<<<<<<< HEAD
-=======
-
 'use strict';
 
 let https = require ('https');
 
 let host = 'api.cognitive.microsoft.com';
-let path = '/bing/v7.0/spellcheck';
+//let path = '/bing/v7.0/spellcheck';
 
 /* NOTE: Replace this example key with a valid subscription key (see the Prequisites section above). Also note v5 and v7 require separate subscription keys. */
 let key = 'ce04e96fbe3c474cac2cd0d62de82fab';
@@ -94,19 +79,6 @@ let response_handler = function (response) {
     });
 };
 
-let req = https.request (request_params, response_handler);
-req.write ("text=" + text);
-req.end ();
-
-
-
-
-
-
-
-
->>>>>>> Youngjoon
-//Papago translate keys
 var client_id = 'r8JE23ZC9yVS7inEevOk';
 var client_secret = 'k236n9DBjZ';
 //plagiarism keys
@@ -123,7 +95,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.locals.pretty = true;
 app.use('/user', express.static('uploads'));
-<<<<<<< HEAD
 app.use('/css', express.static('public'));
 app.use(cors({ origin: true }));
 //인증모듈 객체 가져오기
@@ -135,12 +106,6 @@ var userInfo; //로그인한 유저의 정보 object type
 
 app.set('views', './views');
 app.set('view engine', 'jade');
-
-
-=======
-app.set('views', './views');
-app.set('view engine', 'jade');
->>>>>>> Youngjoon
 app.get('/upload-enc', function(req, res) {
   res.render('upload-enc');
 });
@@ -148,99 +113,51 @@ app.post('/upload-enc', upload.single('userfile'), function(req, res) {
   res.send('Uploaded : ' + req.file.filename);
 });
 app.get('/buttons', function(req, res) {
-  // fs.readdir('data', function(err, files){
-  //   if(err){
-  //     console.log(err);
-  //     res.status(500).se nd('Internal Server Error');
-  //   }
   res.sendFile(path.join(__dirname + '/buttons.html'));
-  // });
 });
-<<<<<<< HEAD
-app.get(['/translate.html', 'translate'], function(req, res) {
-  res.sendFile(path.join(__dirname + '/translate.html'));
-=======
-app.get('/translate', function(req, res) {
-  res.sendFile(path.join(__dirname + '/translate.html'));
-
->>>>>>> Youngjoon
+app.get(['/translator.html', 'translator'], function(req, res) {
+  res.sendFile(path.join(__dirname + '/translator.html'));
 })
 app.get('/spell', function(req, res) {
   res.sendFile(path.join(__dirname + '/spell.html'));
+})
+app.get('/ocr.html', function(req, res) {
+  res.sendFile(path.join(__dirname + '/ocr.html'));
+})
 
+app.get('/EncDec/encoder.html', function(req, res) {
+  res.sendFile(path.join(__dirname + '/EncDec/encoder.html'));
+})
+app.get('/EncDec/decoder.html', function(req, res) {
+  res.sendFile(path.join(__dirname + '/EncDec/decoder.html'));
+})
+
+app.get('/diff/functions/diffchecker.html', function(req, res) {
+  res.sendFile(path.join(__dirname + '/diff/functions/diffchecker.html'));
+})
+app.get('/diff/functions/findMatch.html', function(req, res) {
+  res.sendFile(path.join(__dirname + '/diff/functions/findMatch.html'));
 })
 app.get('/plagiarism', function(req, res) {
   res.sendFile(path.join(__dirname + '/plagiarism.html'));
-<<<<<<< HEAD
 })
 app.get(['/sorting', "/sorting.html"], function(req, res) {
   res.sendFile(path.join(__dirname + '/sorting.html'));
 
 })
-app.get(['/search_word.html', 'search_word'], function(req, res) {
-  res.sendFile(path.join(__dirname + '/search_word.html'));
+app.get(['/wordFreq.html', 'wordFreq'], function(req, res) {
+  res.sendFile(path.join(__dirname + '/wordFreq.html'));
 })
-app.get(['/index.html', 'index'], function(req, res){
+app.get('spellCheck.html', function(req, res) {
+  res.sendFile(path.join(__dirname + '/spellCheck.html'));
+})
+app.get('help.html', function(req, res) {
+  res.sendFile(path.join(__dirname + '/help.html'));
+})
 
-  //세션 체크 함수
+app.get(['/index.html', 'index'], function(req, res){
   userSessionCheck();
 })
-
-function userSessionCheck() {
-
-
-
-//로그인이 되어있으면 - 유저가 있으면, user를 인자값으로 넘겨준다.
-firebaseEmailAuth.onAuthStateChanged(function (user) {
-
-if (user) {
-//조회 - 데이터 베이스에 저장된 닉네임을 현재 접속되어 있는 user의 pk key 값을 이용해서 가져오기
-firebaseDatabase.ref("users/" + user.uid).once('value').then(function (snapshot) {
-
-//자바스크립트 dom 선택자를 통해서 네비게이션 메뉴의 엘리먼트 변경해주기
-document.getElementById("loginmenu").textContent = "Logout";
-document.getElementById("loginmenu").href = "/logout.html";
-document.getElementById("joinmenu").textContent = "Hello! " + snapshot.val().name;
-document.getElementById("joinmenu").href = "#";
-
-
-document.getElementById("startWork").textContent = "Start Work!";
-document.getElementById("startWork").href = "/buttons.html";
-
-
-
-name = snapshot.val().name;   //유저 닉네임은 계속 쓸거기 때문에 전역변수로 할당
-loginUserKey = snapshot.key;  //로그인한 유저의 key도 계속 쓸 것이기 때문에 전역변수로 할당
-userInfo = snapshot.val(); //snapshot.val()에 user 테이블에 있는 해당 개체 정보가 넘어온다. userInfo에 대입!
-
-//alert(userInfo.userid);  //uid는 db에서 user 테이블의 각 개체들의 pk 인데, 이 값은 인증에서 생성된 아이디의 pk 값과 같다. *중요!
-return true
-});
-} else {
-     $('#comment').val("Login is required to leave review/question here.");
-        $(document).ready(function () {
-
-            //메인화면 감사일기 쓰기버튼 눌렀을 때
-            $(document).on('click', '.write', function () {
-
-            //네비게이션 메뉴의 text값 가져오기 - 자바스크립트 dom 방식으로 가져왔다.
-            var seseionCheck = document.getElementById("loginmenu").textContent;
-
-            //내가 쓴글 가져오기 - jquery방식으로 가져왔다.
-            comment = $('#comment').val();
-            if (seseionCheck == "Logout") {
-            //저장하기
-            saveThanks();
-            } else {
-            alert("Login is required.")
-            }
-            });
-        });
-
-    return false
-  }
-})
-};
 app.post('/search_word', function(req, res) {
   var data = req.body.entireWord;
   var wordsArray = splitByWords(data);
@@ -268,11 +185,6 @@ app.post('/sorting', function(req, res) {
   }
   res.send([splitedString]);
 })
-
-=======
-
-})
->>>>>>> Youngjoon
 app.post('/plagiarism', function(req, res) {
       clCloud.login(email, apikey, config.E_PRODUCT.Businesses, callback);
       res.send("Success");
@@ -281,7 +193,6 @@ function callback(resp, err) {
   clCloud.getCreditBalance(function(resp, err) {
       var _customHeaders = {};
       _customHeaders[config.SANDBOX_MODE_HEADER] = true;
-<<<<<<< HEAD
       _customHeaders[config.HTTP_CALLBACK] = 'https://cs252-lab6-58dac.firebaseapp.com/plagiarism'
       var url = 'https://copyleaks.com'; // URL to scan
       var _pid;
@@ -320,22 +231,6 @@ function callback(resp, err) {
 	   });
   // })
 }
-=======
-      _customHeaders[config.HTTP_CALLBACK] = 'http://your.website.com/callbacks/'
-      var url = 'https://copyleaks.com'; // URL to scan
-      clCloud.createByText('helworld',_customHeaders,function(resp,err){
-          if(resp && resp.ProcessId){
-            console.log('API: create-by-text');
-            console.log('Process has been created: '+resp.ProcessId);
-             console.log(util.inspect(resp, false, null))
-          }
-        if(!isNaN(err))
-          console.log('Error: ' + err);
-        });
-    })
-  }
->>>>>>> Youngjoon
-
 
 app.post('/translate_text', function(req, res) {
   var api_url = 'https://openapi.naver.com/v1/language/translate';
@@ -353,10 +248,6 @@ app.post('/translate_text', function(req, res) {
       'X-Naver-Client-Secret': client_secret
     }
   };
-<<<<<<< HEAD
-  console.log(req);
-=======
->>>>>>> Youngjoon
 
   request.post(options, function(error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -378,10 +269,7 @@ app.post('/translate_text', function(req, res) {
         }
       }
       console.log(n[s + 2]);
-<<<<<<< HEAD
       response.write(n[s+2]);
-=======
->>>>>>> Youngjoon
       res.end(n[s + 2]);
       // res.end(body);
     } else {
@@ -393,10 +281,90 @@ app.post('/translate_text', function(req, res) {
  app.listen(3000, function() {
   console.log('Connected, 3000 port!');
 })
-<<<<<<< HEAD
 
 
+app.post('/EncDec/encoder.html', function(req, res) {
+  fs.readFile('/EncDec/qrcode.html', function(err, html){
+    if (!error && response.statusCode == 200) {
+      res.writeHead(200, {
+        'Content-Type': 'text/json;charset=utf-8'});
+        res.write(html);
+        res.end();
+      // res.end(body);
+    } else {
+      res.status(response.statusCode).end();
+      console.log('error = ' + response.statusCode);
+    }
+  })
+})
+app.post('/EncDec/decoder.html', function(req, res) {
+  res.sendFile(path.join(__dirname + '/EncDec/qrcode-decoder.html'));
+  fs.readFile('/EncDec/decoder.html', function(err, html){
+    if (!error && response.statusCode == 200) {
+      res.writeHead(200, {
+        'Content-Type': 'text/json;charset=utf-8'});
+        res.write(html);
+        res.end();
+      // res.end(body);
+    } else {
+      res.status(response.statusCode).end();
+      console.log('error = ' + response.statusCode);
+    }
+  })
+})
 
+app.get('/join.html', function(req, res) {
+  res.sendFile(path.join(__dirname + '/join.html'));
+})
+var users = [
+  {
+    username : 'user1', password: 'asdasdas', displayName: 'users1'
+  }
+];
+
+app.post('/join.html', function(req, res) {
+  hasher({password:req.body.password}, function(err, pass, hash){
+      var user = {
+        username:req.body.username,
+        password:hash,
+        displayName:req.body.displayName
+      };
+      users.push(user);
+      req.session.displayName = req.body.displayName;
+      req.session.save(function(){
+        res.redirect('/welcome');
+      });
+    });
+})
+app.get('/login.html', function(req, res) {
+  res.sendFile(path.join(__dirname + '/join.html'));
+})
+var users = [
+  {
+    username : 'user1', password: 'asdasdas', displayName: 'users1'
+  }
+];
+
+app.post('/login.html', function(req, res) {
+  var uname = req.body.username;
+  var pwd = req.body.password;
+  for(var i=0; i<users.length; i++){
+    var user = users[i];
+    if(uname === user.username) {
+      return hasher({password:pwd}, function(err, pass, hash){
+        if(hash === user.password){
+          req.session.displayName = user.displayName;
+          req.session.save(function(){
+            res.redirect('/welcome');
+          })
+        } else {
+          res.send('Who are you? <a href="/auth/login">login</a>');
+        }
+      });
+    }
+  }
+  res.send('Who are you? 2<a href="/auth/login">login</a>');
+})
 
 //=============================functions
 function splitByWords (text) {
@@ -431,5 +399,3 @@ function sortByCount (wordsMap) {
   });
   return finalWordsArray;
 }
-=======
->>>>>>> Youngjoon
