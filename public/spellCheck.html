@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
     <style>
         body {background-color: #517CA4;}
         h1   { font-family:verdana; font-size:200%;}
@@ -23,4 +24,247 @@
 
 
     </body>
+
+<head>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Spelling Check</title>
+
+
+
+<!-- 네비게이션 바 시작 -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">File Analyzer</a>
+        </div>
+        
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a id="backtoFunc" href="/buttons.html">Functions</a>
+                </li>
+                <li>
+                    <a id="loginmenu" href="/logout.html">Logout</a>
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!-- 네비게이션 바 끝 -->
+
+
+    <style type="text/css">
+        body {
+            background-color: #517CA4;
+        }
+
+        html, body, div, p, h1, h2 {
+            font-family: Verdana, "Lucida Sans", sans-serif;
+        }
+
+        html, body, div, p  {
+            font-weight: normal;
+        }
+        h1, h2 {
+            font-weight: bold;
+        }
+        sup {
+            font-weight: normal;
+        }
+
+        html, body, div, p  {
+            font-size: 12px;
+        }
+
+        h1 {
+            font-size: 20px;
+        }
+        h2 {
+            font-size: 16px;
+        }
+        h1, h2 {
+            clear: left;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+
+        getSubscriptionKey = function() {
+
+            var COOKIE = "bing-spell-check-api-key";   // name used to store API key in key/value storage
+
+            function findCookie(name) {
+                var cookies = document.cookie.split(";");
+                for (var i = 0; i < cookies.length; i++) {
+                    var keyvalue = cookies[i].split("=");
+                    if (keyvalue[0].trim() === name) {
+                        return keyvalue[1];
+                    }
+                }
+                return "";
+                }
+
+            function getSubscriptionKeyCookie() {
+                var key = findCookie(COOKIE);
+                /*
+                while (key.length !== 32) {
+                    key = prompt("Enter Bing Spell Check API subscription key:", "").trim();
+                    var expiry = new Date();
+                    expiry.setFullYear(expiry.getFullYear() + 2);
+                    document.cookie = COOKIE + "=" + key.trim() + "; expires=" + expiry.toUTCString();
+                }
+                */
+                key = "ce04e96fbe3c474cac2cd0d62de82fab";
+                return key;
+            }
+
+            function getSubscriptionKeyLocalStorage() {
+                var key = localStorage.getItem(COOKIE) || "";
+                /*
+                while (key.length !== 32)
+                    key = prompt("Enter Bing Spell Check API subscription key:", "").trim();
+                localStorage.setItem(COOKIE, key)
+                */
+                key = "ce04e96fbe3c474cac2cd0d62de82fab";
+                return key;
+            }
+
+            function getSubscriptionKey(invalidate) {
+                if (invalidate) {
+                    try {
+                        localStorage.removeItem(COOKIE);
+                    } catch (e) {
+                        document.cookie = COOKIE + "=";
+                    }
+                } else {
+                    try {
+                        return getSubscriptionKeyLocalStorage();
+                    } catch (e) {
+                        return getSubscriptionKeyCookie();
+                    }
+                }
+            }
+
+            return getSubscriptionKey;
+        }();
+
+        function pre(text) {
+
+            var txt = text.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+            var stringTxt = JSON.stringify(txt);
+
+            //var test = $('#txt').data('suggestions');
+            var splitted = stringTxt.split(/[\\]/);
+            var temp;
+            for (var i = 0; i <splitted.length; i++) {
+                if (splitted[i].includes("suggestion")) {
+                    temp = i;
+                }
+
+            }
+            // if(stringTxt.includes("suggestions")) {
+            // }
+            var result = splitted[temp+2].substring(1);
+
+            return "<pre>" + "<ul><li>" + result + "</pre>" + "</li></ul>" 
+        }
+
+        function renderSearchResults(results) {
+            document.getElementById("results").innerHTML = pre(JSON.stringify(results, null, 2));
+
+
+        }
+
+        function renderErrorMessage(message, code) {
+            if (code)
+                document.getElementById("results").innerHTML = "<pre>Status " + code + ": " + message + "</pre>";
+            else
+                document.getElementById("results").innerHTML = "<pre>" + message + "</pre>";
+        }
+
+        function bingSpellCheck(query, key) {
+            var endpoint = "https://api.cognitive.microsoft.com/bing/v7.0/spellcheck/";
+
+            var request = new XMLHttpRequest();
+
+            try {
+                request.open("GET", endpoint + "?mode=proof&mkt=en-US&text=" + encodeURIComponent(query));
+            }
+            catch (e) {
+                renderErrorMessage("Bad request");
+                return false;
+            }
+
+            request.setRequestHeader("Ocp-Apim-Subscription-Key", key);
+
+            request.addEventListener("load", function() {
+                if (this.status === 200) {
+                    renderSearchResults(JSON.parse(this.responseText));
+                }
+                else {
+                    if (this.status === 401) getSubscriptionKey(true);
+                    renderErrorMessage(this.statusText, this.status);
+                }
+            });
+
+            request.addEventListener("error", function() {
+                renderErrorMessage("Network error");
+            });
+
+            request.addEventListener("abort", function() {
+                renderErrorMessage("Request aborted");
+            });
+
+            request.send();
+            return false;
+        }
+    </script>
+</head>
+
+<body onload="document.forms.bing.query.focus(); getSubscriptionKey();">
+
+<!--    <img src="LogoLab6.jpg" width="150" height="100">-->
+    <h1 title="spellcheckh1">Spelling Check</h1>
+    <hr>
+
+    <p style="font-size:100%;"> Write the text button to spelling check.</p>
+    <form name="bing" onsubmit="return bingSpellCheck(this.query.value, getSubscriptionKey())">
+        <h2>Spell Check</h2>
+        <input type="text" name="query" size="80" placeholder="Spell Check" autocomplete=off>
+    </form>
+
+    <h3>Results</h3>    
+    <div id="results">
+        <ul><li>
+            <p>No words yet.</p>
+        </li></ul>
+    </div>
+</body>
+
 </html>
