@@ -6,7 +6,7 @@ body {
   text-rendering: auto;
   line-height: 1.6em;
   padding: 35%;
-  padding-top: 25vh;
+  padding-top: 15vh;
 }
 * {
   box-sizing: border-box;
@@ -17,7 +17,8 @@ body {
   position: relative;
   padding: .8em 1.3em;
   padding-right: 1.7em;
-  background: #5042f4;
+  background: #FFFFFF;
+  border-radius: 12px;
   font-size: 0.9em;
   border: none;
   color: white;
@@ -33,7 +34,7 @@ body {
   transition: .2s;
   transform-origin: 50% 50%;
 }.button:hover {
-  background: #3db5e2;
+  background: #b5ccff;
 }
 .button:active,
 .button:focus {
