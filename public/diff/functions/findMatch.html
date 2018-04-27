@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+  <TITLE>Pattern Finder</TITLE>
+  <SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="../javascript/diff_match_patch.js"></SCRIPT>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</HEAD>
+
+<BODY>
+    
+    <!-- 네비게이션 바 시작 -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">File Analyzer</a>
+            </div>
+            
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a id="backtoFunc" href="/buttons.html">Functions</a>
+                    </li>
+                    <li>
+                        <a id="loginmenu" href="/logout.html">Logout</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <!-- 네비게이션 바 끝 -->
+
+    
+<H1>Pattern Finder</H1>
+
+<FORM action="#" onsubmit="return false">
+<H3>Text:</H3>
+<TEXTAREA ID="text" STYLE="width: 100%" ROWS=10 onChange="textchange()">Please put text here!
+CS 252 System programming
+File Analyzer.</TEXTAREA>
+
+<H3>Pattern:</H3>
+<P><INPUT ID="pattern" SIZE=32 VALUE="CS 252"> <SPAN ID="maxlengthspan"></SPAN><BR>
+Enter a pattern what you want to find in the text above.</P>
+
+<H3>If you know approximate location, it will improve searching time</H3>
+<P><INPUT ID="loc" SIZE=4 MAXLENGTH=10 VALUE="30"> <SPAN ID="maxtextspan"></SPAN><BR>
+Aproximately where in the text is the pattern expected to be found?</P>
+
+<H3>Set distance:</H3>
+<P><INPUT TYPE="text" SIZE=3 MAXLENGTH=8 VALUE="500" ID="distance"><BR>
+Enter a distance from beginning.<br>
+(If you put 500, it will search from
+first character to 500th character)</P>
+
+<H3>Set Searching time:</H3>
+<P><INPUT TYPE="text" SIZE=3 MAXLENGTH=5 VALUE="0.8" ID="threshold"><BR>
+Put maximum time for searching.
+(If you put 0.8, it will search for 0.8 second)</P>
+<br>
+<INPUT TYPE="button" onClick="launch()" VALUE="Compute Match">
+</FORM>
+
+<DIV ID="outputdiv"></DIV>
+
+<DIV ID="datediv"></DIV>
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">
+var dmp = new diff_match_patch();
+
+function launch() {
+  var text = document.getElementById('text').value;
+  var pattern = document.getElementById('pattern').value;
+  var loc = parseInt(document.getElementById('loc').value, 10);
+
+  dmp.Match_Distance = parseFloat(document.getElementById('distance').value);
+  dmp.Match_Threshold = parseFloat(document.getElementById('threshold').value);
+
+  var ms_start = (new Date()).getTime();
+  var match = dmp.match_main(text, pattern, loc);
+  var ms_end = (new Date()).getTime();
+
+  document.getElementById('datediv').innerHTML = 'Time: ' + (ms_end - ms_start) / 1000  + 's';
+  if (match == -1) {
+    document.getElementById('outputdiv').innerHTML = 'No match found.';
+  } else {
+    var quote = text.substring(match, match + pattern.length);
+    quote = quote.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    quote = quote.replace(/\n/g, '&para;');
+    document.getElementById('outputdiv').innerHTML = 'Match found at ' + match +
+        'th character: &nbsp; <CODE>' + quote + '</' + 'CODE>';
+  }
+}
+
+function textchange() {
+  document.getElementById('maxtextspan').innerHTML = '(text is currently ' + document.getElementById('text').value.length + ' characters long)';
+}
+
+textchange();
+document.getElementById('pattern').maxLength = dmp.Match_MaxBits;
+document.getElementById('maxlengthspan').innerHTML = '(maxlength: ' + dmp.Match_MaxBits + ')';
+</SCRIPT>
+<br>
+
+</BODY>
+</HTML>
