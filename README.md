@@ -1,6 +1,8 @@
 # StraightEye-Lab6
  
-Members: Myeongsu Kim (kim2167@purdue.edu), SeoHyun Ahn(ahn67@purdue.edu), Youngjoon Park(park612@purdue.edu), Piyush Juneja(pjunea@purdue.edu)
+Members: Myeongsu Kim (kim2167@purdue.edu), SeoHyun Ahn(ahn67@purdue.edu), Youngjoon Park(park612@purdue.edu), Piyush Juneja(pjuneja@purdue.edu)
+
+YouTube link: https://youtu.be/qtL8A2Gw7ss
 
 Name: Straight Eye
 
